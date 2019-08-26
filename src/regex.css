@@ -1,0 +1,182 @@
+#words, #p-tb, #ca-talk, #pt-mytalk, #pt-preferences, #pt-watchlist, #pt-mycontris, #pt-anontalk, #pt-anonuserpage, #pt-userpage, #ca-viewsource, #quiz
+{
+  display:none;
+}
+
+
+#left
+{
+	float: left;
+	padding: 10px;
+    width: 33.3%;
+
+}
+
+.green
+{
+  color: #00FF00;
+font-weight: bold;
+}
+
+.red
+{
+  color:#FF0000;
+font-weight: bold;
+
+}
+
+#right
+{
+	float: right;
+    width: 33.3%;
+	padding: 10px;
+}
+
+#message
+{
+    float: left;
+    text-align: center;
+    width: 25%;
+      display: table; 
+    height: 150px;
+}
+
+#theMessage
+{
+    text-align:center; 
+  vertical-align: middle;
+  display: table-cell; 
+  color: #2779aa;
+  font-size: 26px;
+font-weight: bold;
+display:none;
+}
+
+#main
+{
+	margin: auto;
+	height: 700;
+	width:900px;
+	    border-width: 10px;
+border-color: #aed0ea;
+	border-style: ridge;
+	padding: 10px;
+        border-radius: 20px;
+background-color:#ccffff;
+}
+
+.rearrange
+{
+	padding: 10px;
+        height: 60px;
+}
+
+.anagram
+{
+	border: 1px solid #aed0ea;
+        color: #2779aa;
+background: #d7ebf9;
+	height: 30px;
+	width: 30px;
+        top: 0px;
+        padding: 10px;
+	border-radius: 20px;
+	cursor: pointer;
+border-width: 4px;
+}
+
+.anagram:hover, .quizAnswer:hover
+{
+   border-color: blue;
+   border-width: 4px;
+}
+
+#answerBox
+{
+    display: inline-block;
+	border-color: #2779aa;
+	border-style: solid;
+	height: 60px;
+	width: 800px;
+        border-radius: 10px;
+}
+
+#deleteBox
+{
+  border-color: #2779aa;
+	border-style: solid;
+float: right;
+height: 80px;
+width: 85px;
+border-radius: 10px;
+}
+
+#answerBox> div 
+{ 
+  float: left; 
+}
+
+.quizAnswer
+{
+  border: 4px solid #aed0ea;
+  width: 200px;
+  text-align: center;
+  border-radius: 20px;
+  padding: 10px;
+  margin: 10px;
+	cursor: pointer;
+
+}
+
+#questionID
+{
+  font-weight: bold;
+}
+
+.quizText
+{
+  margin: 10px;
+}
+
+.theQuiz> div
+{
+	    border-width: 10px;
+border-color: #aed0ea;
+	border-style: ridge;
+	padding: 10px;
+        border-radius: 20px;
+background-color:#ccffff;
+margin: 20px;
+}
+
+#questionAnswers .ui-selecting
+{
+background: #FECA40;
+}
+
+#questionAnswers .ui-selected
+{
+border-color: blue;
+border-width: 5px;
+
+}
+
+#questionAnswers
+{
+width:180;
+}
+
+#questionMain
+{
+    width: 33.3%;
+
+}
+
+.result
+{
+    width: 70.3%;
+float :right;
+text-align:left;
+  font-size: 30px;
+font-weight: bold;
+}
