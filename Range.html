@@ -1,0 +1,71 @@
+<html>
+<link rel="stylesheet" href="src/regex.css">
+  <script src="scripts/jquery-3.4.1.min.js"></script>
+  <script src="scripts/regex.js"></script>
+  <script src="scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+<head>
+<title>Range</title>
+In this tutorial, you will learn how to use
+- <b>square brackets, []</b> which will match anything inside the square brackets for ONE character position once and only once for example, the pattern <b>[abc]</b> will only match <b>a, b </b>or <b>c</b> and nothing else (but will not match <b>A, B </b> or <b>C</b>).
+- <b>dash inside square brackets, - </b> is the 'range separator and allows a range to be defined, for example, the pattern <b>[abc]</b> from above can be rewritten as <b>[a-c]</b>
+
+  Consider the expression <b>in[du]</b>, this will match
+    <b>ind</b> in W<b>ind</b>ows and <b>ind</b>uction
+    <b>inu</b> in L<b>inu</b>x
+	
+</<head>
+<pre id='words'>
+{
+    "stage": [
+        {
+            "anagram": "[]cmfandrp",
+            "data": {
+                "match": [
+                    "can",
+                    "man",
+                    "fan"
+                ],
+                "notMatch": [
+                    "dan",
+                    "pan",
+                    "ran"
+                ]
+            }
+        }
+    ]
+}</pre>
+<body>
+<div id="main">
+        <div>
+	<div id="left">
+		<p>Match the following...</p>
+		<div id="match">
+		</div>
+	</div>
+        <div id="message">
+           <p id="theMessage"> WELL DONE!!  &#10003; </p>
+        </div>
+	<div id="right">
+		<p>But not the following...</p>
+		<div id="notmatch">
+		</div>
+	</div>
+</div>
+	<div style="clear:both"></div> 
+	<p>Drag and rearrange...</p>
+	<div class="rearrange">
+	</div>
+	<div style="clear:both"></div> 
+	<p>To form the correct regular expression</p>
+
+	<div id="answer" style="float: left">
+
+	</div>
+   <div id="deleteBox" class="droppable">Delete Box </div>
+
+	<div style="clear:both">  
+</div> 
+	<p>Submit Answer: <span id="answerSubmit"></span></p> 
+</div>
+</body>
+</html>

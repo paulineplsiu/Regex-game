@@ -1,0 +1,77 @@
+<html>
+<link rel="stylesheet" href="src/regex.css">
+  <script src="scripts/jquery-3.4.1.min.js"></script>
+  <script src="scripts/regex.js"></script>
+  <script src="scripts/jquery-ui-1.12.1/jquery-ui.js"></script>
+<head>
+<title>How To Play</title>
+Let's start by learning how to use the interface
+
+</br>Drag the letter which appears in all the words on the left but not on the right
+</br>Notice if you drag <b>a</b> into the answer box, there is a green <span class="green"> &#9786; </span> next to the words on the left, and a green <span class="green"> &#10004; </span> next to the words on the right. This means that your answer matches the words on the left but does not match the words on the right.</br>
+If you drag <b>e</b> into the answer box, there is a red <span class="red"> &#9785; </span> next to the words on the left, and a red <span class="red"> &#10008; </span> next to the words on the right. This means that your answer coed not match the words on the left but matches the words on the right.</br>
+
+  <b>Colour key</b></br>
+  <span class="green"> &#9786; </span> Your answer matches the word on the <b>match</b> list (list on left)</br>
+  <span class="red"> &#9785; </span> Your answer does not match the word on the <b>match</b> list (list on left)</br>
+  <span class="green"> &#10004; </span> Your answer does not match the word on the <b>don't match</b> list (list on right)</br>
+  <span class="red"> &#10008; </span> Your answer matches the word on the <b>don't match</b> list (list on right)
+</br>
+In order to complete a puzzle, you must all <span class="green"> &#9786; </span> on the left and all <span class="green"> &#10004; </span> on the right
+
+</<head>
+<pre id='words'>
+{
+    "stage": [
+        {
+            "anagram": "ae",
+            "data": {
+                "match": [
+                    "bat",
+                    "map",
+                    "pat"
+                ],
+                "notMatch": [
+                    "beg",
+                    "met",
+                    "pet"
+                ]
+            }
+        }
+    ]
+}</pre>
+<body>
+<div id="main">
+        <div>
+	<div id="left">
+		<p>Which letter appears in this list...</p>
+		<div id="match">
+		</div>
+	</div>
+        <div id="message">
+           <p id="theMessage"> WELL DONE!!  &#10003; Now let's try the first puzzle [[Range|Range]]</p> 
+        </div>
+	<div id="right">
+		<p>But not in this list...</p>
+		<div id="notmatch">
+		</div>
+	</div>
+</div>
+	<div style="clear:both"></div> 
+	<p>Drag a letter..</p>
+	<div class="rearrange">
+	</div>
+	<div style="clear:both"></div> 
+	<p>Into the answer box below...</p>
+
+	<div id="answer" style="float: left">
+
+	</div>
+   <div id="deleteBox" class="droppable">Delete Box </div>
+
+	<div style="clear:both">  
+</div> 
+	<p>Submit Answer: <span id="answerSubmit"></span></p> 
+</div>
+</body>
+</html>
