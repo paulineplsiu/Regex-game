@@ -1,0 +1,193 @@
+//This is a prototype of my dissertation project rewritten using Node.js
+
+var wordsArray = [];
+var answerArray = [];
+var answerSubmit;
+
+var endTime;
+var timeTaken;
+var status;
+var level = 0;
+var words;
+var theJSON;
+
+$(document).ready(function () {
+    try {
+        theJSON = document.getElementsByTagName("pre");
+        //	console.log(theJSON[0].innerHTML);
+        words = $.parseJSON(theJSON[0].innerHTML);
+    } catch (e) {
+        alert(e);
+    }
+    setUpArrays();
+    display(answer, answerArray, matchArray, notMatchArray);
+});
+
+function setUpArrays() {
+    matchArray = words.stage[level].data.match;
+    notMatchArray = words.stage[level].data.notMatch;
+    answer = words.stage[level].anagram;
+    for (var i = 0; i < answer.length; i++) {
+        answerArray.push(answer.charAt(i));
+    }
+    for (var i = 0; i < matchArray.length; i++) {
+        $("#match").append("<p><span class='matchWords' id='matchWord" + i + "' value='" + matchArray[i] + "'>" + matchArray[i] + "</span>\t\t <span class='results' id='matchResult" + i + "'style='float:right'>?</span></p>");
+    }
+    for (var i = 0; i < notMatchArray.length; i++) {
+        $("#notmatch").append("<p><span class='notMatchWords' id='notMatchWord" + i + "' value='" + notMatchArray[i] + "'>" + notMatchArray[i] + "</span>\t\t <span class='results' id='notMatchResult" + i + "'  style='float:right'>?</span></p>");
+    }
+}
+
+function display(answer, answerArray, matchArray, notMatchArray) {
+    $("#answer").append("<div class='droppable' id='answerBox' style='float: left'></div>");
+    for (var i = 0; i < answer.length; i++) {
+        $('<div class="anagram ui-state-default"  style="float: left">' + answerArray[i] + '</div>')
+        .data('answerArray', answerArray[i])
+        .attr('id', answerArray[i])
+        .attr('value', answerArray[i])
+        .appendTo('.rearrange')
+        .draggable({
+            containment: '#content',
+            stack: '.rearrange div',
+            cursor: 'move',
+            helper: 'clone',
+            connectToSortable: '#answerBox',
+            snap: true,
+            snapTolerance: 'fit'
+        });
+    }
+
+    $("#answerBox").droppable().sortable({
+        tolerance: 'pointer',
+        connectWith: ".droppable , .sortable",
+        receive: function (event, ui) {
+            ui.item.toggle();
+        },
+        update: function (event, ui) {
+            status = 'attempted';
+            answerSubmit = $("#answerBox").children(".anagram").text();
+            console.log(answerSubmit);
+
+            //			$.getJSON('../report.php',{user:wgUserName,page:wgPageName,what:status,start:$('body').data('startTime'),
+            //params:answerSubmit, duration:((new Date()).getTime() - startTime.getTime())/1000});
+            $("#answerSubmit").text(answerSubmit);
+			console.log(document.getElementsByTagName("title")[0]);
+            if (document.getElementsByTagName("title")[0] == "How To Play") {
+                answerSubmit = '.' + answerSubmit + '.';
+            }
+	
+            if (answerSubmit === "..") {
+								//document.getElementById("main").innerHTML = "";
+				$("#match").html("");
+				$("#notmatch").html("");
+				//console.log("1111111111 - "+answerSubmit);
+				setUpArrays();
+				//    display(answer, answerArray, matchArray, notMatchArray);
+
+			}
+			else
+			{
+            for (var i = 0; i < matchArray.length; i++) {
+				                console.log("222222222 - "+answerSubmit);
+				
+                checkMatchPosition(matchArray[i], notMatchArray[i], answerSubmit, i);
+            }
+		}
+        }
+    });
+
+    $("#deleteBox").droppable({
+        accept: '#answerBox > div',
+        drop: function (event, ui) {
+            var deletedLetter = (ui.draggable).attr('value');
+            deletedLetter = deletedLetter.replace(/(\||\(|\)|:|\.|\[|\]|\?|\*|\+|\^)/g, "\\$1");
+            $(ui.draggable).remove();
+            $("#" + deletedLetter).toggle();
+
+            answerSubmit = $("#answerBox").children(".anagram").text();
+            if (answerSubmit === "..") {
+                console.log("33333333 - " + answerSubmit);
+				$("#match").html("");
+				$("#notmatch").html("");
+                setUpArrays();
+                //display(answer, answerArray, matchArray, notMatchArray);
+
+            } else {
+                for (var i = 0; i < matchArray.length; i++) {
+					                console.log("444444444 - "+answerSubmit);
+
+                    checkMatchPosition(matchArray[i], notMatchArray[i], answerSubmit, i);
+                }
+            }
+        }
+    });
+}
+
+function checkMatchPosition(matchWord, notMatchWord, answerSubmit, line) {
+    var result = matchWord.replace(re, function (str) {
+            return '<b style="color: black">' + str + '</b>';
+        });
+    $("#matchWord" + line + "").html(result);
+    $("#matchResult" + line + "").html("?").css('color', 'black');
+    var result = notMatchWord.replace(re, function (str) {
+            return '<b style="color: black">' + str + '</b>';
+        });
+    $("#notMatchWord" + line + "").html(result);
+    $("#notMatchResult" + line + "").html("?").css('color', 'black');
+    var re = new RegExp('voldemort');
+
+    try {
+        re = new RegExp(answerSubmit);
+    } catch (e) {}
+    var reMatch = re.exec(matchWord);
+    var reNotMatch = re.exec(notMatchWord);
+    var matchPattern = matchWord.search(re); //search if there is a match
+    var notMatchPattern = notMatchWord.search(re);
+    var matchWord = $("#matchWord" + line + "").attr('value');
+
+    //how to play page
+/*     if (document.getElementsByTagName("title")[0] = "How To Play")
+        {
+        	if (matchWord.match(re))
+      		{
+       			$("#theMessage").toggle();
+       		}
+        } */
+
+    //match array
+    if (matchPattern !== -1) //-1 if pattern not found
+    {
+        var result = matchWord.replace(re, function (str) {
+                return '<b style="color: #00FF00">' + str + '</b>';
+            });
+        $("#matchWord" + line + "").html(result);
+
+        $("#matchResult" + line + "").html("<b>&#9785; </b>").css('color', '#FF0000');
+        if (reMatch[0] === matchWord) {
+            $("#matchResult" + line + "").html("<b>&#9786; </b>").css('color', '#00FF00');
+        } else {}
+    }
+    //not match array
+    if (notMatchPattern !== -1) {
+        var result = notMatchWord.replace(re, function (str) {
+                return '<b style="color: #FF0000">' + str + '</b>';
+            });
+        $("#notMatchWord" + line + "").html(result);
+        $("#notMatchResult" + line + "").html("<b>&#10008; </b>").css('color', '#FF0000'); //red cross
+    } else {
+        $("#notMatchResult" + line + "").html("<b>&#10004; </b>").css('color', '#00FF00'); //green tick
+    }
+	
+	var smileyCount = $(".results").filter(function() {
+    return $(this).html() == '☺';
+}).length;
+	console.log("smiley span: " + $("span:contains('&#9785;')").length);
+	console.log("smiley: " + smileyCount);
+	console.log("match array: " + matchArray.length);
+	console.log("tick span: " + $("#notmatch span:contains('✔')").length);
+	console.log("notmatch array: " + notMatchArray.length);
+    if ($("#match span:contains('☺')").length == matchArray.length && $("#notmatch span:contains('✔')").length == notMatchArray.length) {
+        $("#theMessage").toggle();
+
+    }
+}
